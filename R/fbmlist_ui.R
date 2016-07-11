@@ -20,21 +20,21 @@ fbmlist_ui <- function(type = "tab", title = "Germoplasm Managment", name = "fbm
                             tabBox(width = 10,
                                    tabPanel(title = "TAB1", #begin tabset "CHECK"
 
-                                            shiny::actionButton("fbMlist_syncronize", "Syncronize Material Lists", icon("refresh"), 
+                                            shiny::actionButton("fbmlist_syncronize", "Syncronize Material Lists", icon("refresh"), 
                                                                 style="color: #fff; background-color: #337ab7; border-color: #2e6da4"
                                             ),
-                                            fluidRow( 
+                                          #  fluidRow( 
                                               #
-                                              column(width = 12, DT::dataTableOutput('fbmlist_table'))#,
+                                           #   column(width = 12, DT::dataTableOutput('fbmlist_table'))#,
                                               #column(8, shiny::textOutput("row_print"))
                                               #column(8, shiny::actionButton("refresh", "Refresh Sheet")),
                                               #column(8, shiny::actionButton(inputId = "fbmlist_file" ,label = "mlist Book"))
                                               
-                                            ), #end fluidow
+                                          #  ), #end fluidow
                                             
                                             fluidRow(
                                               HTML('<div style="float: right; margin: 0 15px 18px 0px;">'),
-                                              shiny::actionButton("fbMlist_connect", "Refresh Table", icon("refresh"), 
+                                              shiny::actionButton("fbmlist_connect", "Refresh Table", icon("refresh"), 
                                                                   style="color: #fff; background-color: #337ab7; border-color: #2e6da4"
                                               ),
 #                                               shiny::actionButton(inputId = "fbMlist_connect" ,label = "mlist Book", icon("file"),
