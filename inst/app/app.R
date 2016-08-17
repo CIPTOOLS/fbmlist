@@ -1,17 +1,23 @@
+#first shinySky
+ 
+library(shinysky)
 library(shiny)
-library(DT)
+#To avoid problems with dplyr and shiny. This package overlap actionButton from Shiny
+library(DT)  ##agregar la nueva version de github
 library(shinydashboard)
-library(DBI)
-library(RMySQL)
-library(spsurvey)
-library(foreign)
+library(DBI) #agregar a hidap2 app
+library(RMySQL) #agregar a hidap2 app
+library(spsurvey) #agregar a hidap2 app
+library(foreign) #agregar a hidap2 app
 library(rhandsontable)
 library(shinyBS)
 library(tools)
-library(shinyjs)
+library(shinyjs) #agregar a hidap2 app
 library(stringr)
 library(dplyr)
 library(data.table)
+library(countrycode) ##agregar al hidap2 app
+library(openxlsx)
 
 ##test (crear listas usando pedregree book)
 ##test (crear listas usando passport book)
@@ -26,8 +32,8 @@ tabNameS2 <- "generateList"
 server <- function(input, output, session,values) {
   values = shiny::reactiveValues()
   #fbmlist::server_generate(input, output, session, values = values)
-  #fbmlist::server_managerlist(input, output, session, values = values)
-  fbmlist::server_create(input, output, session, values = values)
+  fbmlist::server_managerlist(input, output, session, values = values)
+  #fbmlist::server_createlist(input, output, session, values = values)
 }
 
 ui <- dashboardPage(skin = "yellow",
@@ -43,9 +49,10 @@ ui <- dashboardPage(skin = "yellow",
                     dashboardBody(
                       
                       tabItems(
-                        #fbmlist::generate_ui(name = tabNameS),
-                        fbmlist::create_ui(name = tabNameS)
-                        #fbmlist::managerlist_ui(name = tabNameS2)
+                        
+                        #fbmlist::generate_ui(name = tabNameS)#,
+                        #fbmlist::createlist_ui(name = tabNameS)
+                        fbmlist::managerlist_ui(name = tabNameS)
                         
                       )
                     )
