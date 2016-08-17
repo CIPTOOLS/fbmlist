@@ -2,7 +2,7 @@
 % Please edit documentation in R/server_generate.R
 \name{server_generate}
 \alias{server_generate}
-\title{Server Germoplasm and Material List Managment}
+\title{Server Side for generation of Material List}
 \usage{
 server_generate(input, output, session, values)
 }
@@ -16,7 +16,7 @@ server_generate(input, output, session, values)
 \item{values}{reactive values}
 }
 \description{
-Server Germoplasm and Material List Managment
+Server Side for generation of Material List
 }
 \author{
 Omar Benites

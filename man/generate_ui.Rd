@@ -2,9 +2,9 @@
 % Please edit documentation in R/ui_generate.R
 \name{generate_ui}
 \alias{generate_ui}
-\title{UI germoplasm and material ist managment Generation}
+\title{UI Side for generation of Material List}
 \usage{
-generate_ui(type = "tab", title = "Generate List", name = "generateList")
+generate_ui(type = "tab", title = "Clone List", name = "generateList")
 }
 \arguments{
 \item{type}{type of UI element, deault is a tab in a shinydashboard}

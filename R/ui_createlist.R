@@ -1,4 +1,4 @@
-#' UI germoplasm and material ist managment Generation
+#' UI Side for Creation Material List from Scratch
 #' 
 #' Returns user friendly ui
 #' @author Omar Benites
@@ -8,11 +8,11 @@
 #' @export
 #' 
 
-createlist_ui <- function(type = "tab", title = "Create New List", name = "createList"){
+createlist_ui <- function(type = "tab", title = "Family List", name = "createList"){
   
+
   
-  
-  shinydashboard::tabItem(tabName = name,
+  shinydashboard::tabItem(tabName = name, 
                           h2(title),   
                           
                           shinyjs::useShinyjs(),
@@ -24,6 +24,8 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
                               #p("Seleccione un cultivo y una base de datos"),
                               
                               fluidRow(
+                                
+                               
                                 column(6, selectizeInput(inputId = "fbmlist_sel_crop_new", label = "Select crop", width="100%",
                                                          choices = c("potato","sweetpotato"),
                                                          options = list(
@@ -37,13 +39,15 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
                                 
                                 column(6, selectizeInput("fbmlist_sel_type_new", "Type of DataBase", width="100%", selected = 2,
                                                          choices = c("Institutional","Local")))
+                                
+                                
                               ),
                               
                               fluidRow(
                                 #column(6, selectizeInput("fbmlist_sel_list", "Select data base", width="100%",
                                 #                         choices = db_files_choices )),
                                 column(6, uiOutput("sel_list_new_btn")),
-                                column(6, actionButton("fbmlist_connect_new", "Connect DB", icon("fa fa-database"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4", width = 150))
+                                column(6, shiny::actionButton("fbmlist_connect_new", "Connect DB", icon("fa fa-database"), style="color: #fff; background-color: #337ab7; border-color: #2e6da4", width = 150))
                               ),
                               
                               tags$style(type='text/css', "#fbmlist_sel_list_new { width:100%; margin-top: 25px;}"),
@@ -56,7 +60,8 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
                           
                      #     Conditional Panel for Connect DB button ---------------------------------
                           
-                          
+                    # div(
+                     #  id = "form2",
                           conditionalPanel( condition = "output.show_mtable_new",  ##conditional Panel
                                             
                                             fluidRow(
@@ -72,9 +77,9 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
                                                 #actionButton("fbmlist_search", "Search", icon("fa fa-search"), style="color: #fff; background-color: #51a351; border-color: #51a351", width = 150)
                                                 
                                               ),
-                                              box(
+                                              box(id= "search-results",
                                                 #"Resultados de busqueda", width = 8, status = "primary", height = "730px",
-                                                title = "Resultados de busqueda", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                                                title = "Search Results", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                                                 br(),
                                                 br(),
                                                 div(dataTableOutput("fbmlist_table_new"), style = "font-size:85%"),
@@ -93,40 +98,50 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
                                             br()
                           ),##fin conditional Panel
                           
+                     #),
+                     
+                     
                           # Conditional Panel for Select and Save button ---------------------------------
-                          
-#                           conditionalPanel( condition = "output.show_mtable_new",
-#                                             
-#                                             fluidRow(
-#                                               box(
-#                                                 #"Fill your Material List Information", width = 4, status = "primary", height = "600px",
-#                                                 title = "Fill your Material List Information", width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
-#                                                 br(),
-#                                                 br(),
-#                                                 uiOutput("create_new_name")
-#                                                 #textInput("text", label = h3("Text input"), value = "Enter text..."),
-#                                                 #textInput("text", label = h3("Text input"), value = "Enter text...")
-#                                                 
-#                                               ),
-#                                               box(
-#                                                 #width = 8, status = "primary", height = "600px",
-#                                                 title = "test", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
-#                                                 br(),
-#                                                 DT::dataTableOutput('fbmlist_choosen_table_new'),
-#                                                 #actionButton("plot1_dl", "Save list", icon("fa fa-floppy-o"), style="color: #fff; background-color: #51a351; border-color: #51a351", width = 150)
-#                                                 uiOutput("savelist_new_btn"),
-#                                                 shinyBS::bsAlert("alert_fbmlist_new"),
-#                                                 br()
-#                                               ),
-#                                               br(),
-#                                               br(),
-#                                               br()
-#                                             ),
-#                                             
-#                                             br()#,
-#                                             
-#                           ),
-                          
+                     div(
+                       id = "form",
+                          conditionalPanel( condition = "output.show_mtable_new",
+                                            
+                                            fluidRow(
+                                              box(
+                                                #"Fill your Material List Information", width = 4, status = "primary", height = "600px",
+                                                title = "Fill your Material List Information", width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                                                uiOutput("create_new_name"),
+                                                uiOutput("researcher_new_name"),
+                                                uiOutput("continent_new_name"),
+                                                uiOutput("country_new_name"),
+                                                uiOutput("breedercode_new_name"),
+                                                br()
+                                              ),
+                                              
+                                              div( #begin div
+                                                id = "form2",
+                                              box(
+                                                #width = 8, status = "primary", height = "600px",
+                                                title = "Material Selected", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                                                uiOutput("family_new_list"),
+                                                
+                                                #DT::dataTableOutput('fbmlist_choosen_table_new'),
+                                                #actionButton("plot1_dl", "Save list", icon("fa fa-floppy-o"), style="color: #fff; background-color: #51a351; border-color: #51a351", width = 150)
+                                                uiOutput("savelist_new_btn"),
+                                                shinysky::shinyalert("alert_fbmlist_new", FALSE, auto.close.after = 4),
+                                                #shinyBS::bsAlert("alert_fbmlist_new"),
+                                                br()
+                                              )#,
+                                              ),#fin div
+                                              br(),
+                                              br(),
+                                              br()
+                                            ),
+                                            
+                                            br()#,
+                                            
+                          )#,
+                     ),#end div
                           br(),
                           br(),
                           br()
@@ -134,3 +149,7 @@ createlist_ui <- function(type = "tab", title = "Create New List", name = "creat
   )#End data_processing tabItem
   
 }
+
+
+
+

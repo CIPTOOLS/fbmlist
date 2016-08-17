@@ -1,4 +1,4 @@
-#' UI germoplasm and material ist managment Generation
+#' UI Side for generation of Material List
 #' 
 #' Returns user friendly ui
 #' @author Omar Benites
@@ -11,7 +11,7 @@
 # db_files_choices <- mtl_files()
 # db_files_choices <- db_files_choices$short_name
 
-generate_ui <- function(type = "tab", title = "Generate List", name = "generateList"){
+generate_ui <- function(type = "tab", title = "Clone List", name = "generateList"){
   
 
   
@@ -88,7 +88,7 @@ generate_ui <- function(type = "tab", title = "Generate List", name = "generateL
                               ),
                               box(
                                 #"Resultados de busqueda", width = 8, status = "primary", height = "730px",
-                                title = "Resultados de busqueda", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                                title = "Search Results", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                                 br(),
                                 br(),
                                 div(dataTableOutput("fbmlist_table"), style = "font-size:85%"),
@@ -107,8 +107,9 @@ generate_ui <- function(type = "tab", title = "Generate List", name = "generateL
                             br()
                           ),##fin conditional Panel
 
-# Conditional Panel for Select and Save button ---------------------------------
-
+ # Conditional Panel for Select and Save button ---------------------------------
+              div( #begin div
+                id = "form-gen",
                conditionalPanel( condition = "output.show_mtable",
                                  
                           fluidRow(
@@ -124,12 +125,14 @@ generate_ui <- function(type = "tab", title = "Generate List", name = "generateL
                             ),
                             box(
                               #width = 8, status = "primary", height = "600px",
-                              title = "test", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                              title = "Material Selected", width = 8, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                               br(),
                               DT::dataTableOutput('fbmlist_choosen_table'),
                               #actionButton("plot1_dl", "Save list", icon("fa fa-floppy-o"), style="color: #fff; background-color: #51a351; border-color: #51a351", width = 150)
                               uiOutput("savelist_on_btn"),
-                              shinyBS::bsAlert("alert_fbmlist_on"),
+                              #shinyBS::bsAlert("alert_fbmlist_on"),
+                              shinysky::shinyalert("alert_fbmlist_on", FALSE, auto.close.after = 4),
+                              
                               br()
                             ),
                             br(),
@@ -139,8 +142,8 @@ generate_ui <- function(type = "tab", title = "Generate List", name = "generateL
                           
                           br()#,
                         
-                      ),
-
+                      )#,
+              ),#end div
                       br(),
                       br(),
                       br()

@@ -17,18 +17,20 @@ managerlist_ui <- function(type = "tab", title = "Manage List", name = "manageLi
                             collapsible = TRUE, width = 12,
                             #tabsetPanel(
                             tabBox(width = 10,
-                                   tabPanel("Check", #begin tabset "CHECK"
+                                   tabPanel("Material List", #begin tabset "CHECK"
                                             
                                             fluidRow(
                                               
                                               column(width = 12, 
                                                      
+                                                     br(),
                                                      #HTML('<div style="float: right; margin: 0 5px 5px 10px;">'),
                                                      shiny::actionButton("fbmlist_syncronize", "Syncronize Material Lists", icon("refresh"), 
-                                                                     style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                                                     #HTML('</div>')
+                                                                     style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
                                                      
-                                                     )
+                                                     br(),
+                                                     br()
+                                                  )
 
                                             ),
   
@@ -40,15 +42,19 @@ managerlist_ui <- function(type = "tab", title = "Manage List", name = "manageLi
                                             
                                             fluidRow(
                                               HTML('<div style="float: right; margin: 0 15px 18px 0px;">'),
-                                              shiny::actionButton("fbmlist_refresh", "Refresh Table", icon("refresh"), 
-                                                                  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"
-                                              ),
-                                              shiny::actionButton(inputId = "fbmlist_file" ,label = "Open Book", icon("file"),
+                                              shiny::downloadButton(outputId = "fbmlist_Export", label = "Export"),
+                                              shiny::actionButton(inputId = "fbmlist_fileDelete" ,label = "Delete", icon("file"),
                                                                   style="color: #fff; background-color: #51a351; border-color: #51a351"
                                               ),
+                                              shiny::actionButton("fbmlist_refresh", "Refresh", icon("refresh"), 
+                                                                  style="color: #fff; background-color: #337ab7; border-color: #2e6da4"
+                                              ),
+                                              
+                                              
                                               HTML('</div>')
-                                            )#,
-
+                                            ),
+                                            br(),
+                                            br()
                                    )#,#end tab Panel "CHECK"
                                    
                             )
